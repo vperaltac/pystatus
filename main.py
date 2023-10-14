@@ -10,7 +10,8 @@ PING_TWITTER = Gauge("pystatus_ping_twitter", "Latency to twitter.com")
 PING_AMAZON = Gauge("pystatus_ping_amazon", "Latency to amazon.com")
 
 def ping_server(url, metric):
-    response_time = ping("google.com")
+    response_time = ping(url)
+    print(f"Ping {url}:\t {response_time}ms")
     if response_time is not None:
         metric.set(response_time)
     else:
