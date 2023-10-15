@@ -13,7 +13,7 @@ PING_AMAZON = Gauge("pystatus_ping_amazon", "Latency to amazon.com")
 def ping_server(url, metric):
     response_time = ping(url)
 
-    if response_time is not None:
+    if response_time is not None and response_time is not False:
         metric.set(response_time)
     else:
         metric.set(0)
