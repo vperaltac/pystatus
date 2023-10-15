@@ -14,11 +14,13 @@ def ping_server(url, metric):
     response_time = ping(url)
 
     if response_time is not None and response_time is not False:
+        current_time = datetime.datetime.now()
+        print(f"{current_time} - Ping {url}:\t{response_time} ms")
         metric.set(response_time)
     else:
         metric.set(0)
         current_time = datetime.datetime.now()
-        print(f"{current_time} - WARNING: Ping {url}:\t Failed")
+        print(f"{current_time} - WARNING: Ping {url}:\tFailed")
 
 if __name__ == '__main__':
     # Start up the server to expose the metrics.
