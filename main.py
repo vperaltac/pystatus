@@ -1,5 +1,6 @@
 from prometheus_client import start_http_server, Gauge
 from ping3 import ping, verbose_ping
+import datetime
 import random
 import time
 
@@ -11,11 +12,13 @@ PING_AMAZON = Gauge("pystatus_ping_amazon", "Latency to amazon.com")
 
 def ping_server(url, metric):
     response_time = ping(url)
-    print(f"Ping {url}:\t {response_time}ms")
+
     if response_time is not None:
         metric.set(response_time)
     else:
         metric.set(0)
+        current_time = datetime.datetime.now()
+        print(f"{current_time} - WARNING: Ping {url}:\t Failed")
 
 if __name__ == '__main__':
     # Start up the server to expose the metrics.
